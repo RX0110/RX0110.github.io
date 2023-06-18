@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登陆</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/travel.css">
+    <link rel="shortcut icon" href="favicon.ico"/>
+    
+
+</head>
+<body>
+    <div class="place">
+        <ul class="place-list">
+            <li data-name="bos">波士顿</li>
+            <li data-name="alska">阿拉斯加</li>
+            <li data-name="orlando">奥兰多</li>
+            <li data-name="hawaii">夏威夷</li>
+            <li data-name="puerto">波多黎各</li>
+            <li data-name="rhodland">罗德岛</li>
+            <li data-name="ithaca">伊萨卡</li>
+            <li data-name="vegas">拉斯维加斯</li>
+            <li data-name="getaway">小木屋</li>
+            <li data-name="miami">迈阿密</li>
+            <li data-name="ny">纽约</li>
+            <li data-name="acadia">阿卡迪亚</li>
+        </ul>
+    </div>
+    <div class="photo photo-bos" style="display: block;">
+        <ul class="photo-list">
+            <li>
+                <img src="./images/bos1.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/bos2.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/bos3.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/bos4.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/bos5.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/bos6.jpg" alt="">
+            </li>
+        </ul>
+    </div>
+    <div class="photo photo-alska">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="photo photo-orlando">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="photo photo-hawaii">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="photo photo-puerto">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="photo photo-rhodland">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="photo photo-ithaca">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="photo photo-vegas">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="photo photo-getaway">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="photo photo-ny">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="photo photo-miami">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="photo photo-acadia">
+        <ul class="photo-list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+   <script>
+    // 高亮
+    const place_list = document.querySelector('.place-list')
+    place_list.addEventListener('click', function(e){
+        if(e.target.tagName === 'LI'){
+            // 移除旧的
+            if(document.querySelector('.place-list .active')){
+                document.querySelector('.place-list .active').classList.remove('active')
+            }
+            // 添加新的
+            e.target.classList.add('active')
+            // 渲染
+            const lis = document.querySelectorAll(`.photo-${e.target.dataset.name} li`)
+            for(let j = 0; j < lis.length; j++){
+                lis[j].innerHTML = `<img src="./images/${e.target.dataset.name}${j+1}.jpg" alt="">`
+            }
+            // 显示
+            //先都display：none
+            const pts = document.querySelectorAll('.photo')
+            for(let j = 0; j < pts.length; j ++){
+                pts[j].style.display = 'none'
+            }
+            //对应的显示
+            const now = document.querySelector(`.photo-${e.target.dataset.name}`)
+            now.style.display = 'block'
+
+        }
+    })
+   </script>
+</body>

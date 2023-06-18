@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登陆</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<body>
+    <!-- header开始 -->
+    <header class="header w">
+        <div class="logo">
+            <a href="#" title="一周年"></a>
+            <h1>一周年</h1>
+        </div>
+    <!-- header结束 -->
+    </header>
+     <!-- 侧边栏切换图片开始 -->
+     <div class="tab">
+        <ul>
+            <li data-id="1">
+            <img src="./images/clothes_goods_6.jpg" alt="">
+            </li>
+            <li data-id="2"></li>
+            <li data-id="3"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+        //获取对象
+        const body = document.querySelector('body')
+        const lis = document.querySelectorAll('.tab ul li')
+        // 放图片 添加改变backgroundimg
+        for(let i = 0; i < lis.length; i++){
+            lis[i].innerHTML = `<img src="./images/tab${i+1}.jpeg" alt="">`
+            lis[i].addEventListener('click'||'mouseenter', function(){
+                body.style.backgroundImage =   `url(./images/tab${i+1}.jpeg)`
+                body.style.backgroundSize = '100%'
+            })
+        }
+        // 定时器
+        let i = 0
+        let timeId = setInterval(function(){
+            i++ 
+            lis[i].click()
+            if(i >= lis.length-1){
+                i = -1
+            }
+        }, 2000)
+
+        // 关闭定时器
+        const tab = document.querySelector('.tab')
+        tab.addEventListener('mouseenter', function(){
+            clearInterval(timeId)
+        })
+        tab.addEventListener('mouseleave', function(){
+            timeId = setInterval(function(){
+                i++ 
+                lis[i].click()
+                if(i >= lis.length-1){
+                    i = -1
+                }
+            }, 2000)
+        })
+    </script>
+    <!-- 侧边栏切换图片结束 -->
+    <!-- 登陆内容开始 -->
+    <div class="login">
+        <form action="index.html">
+            <ul>
+                <li >
+                    <label for="">账号：</label> 
+                    <input name="username" type="text" placeholder="请输入用户名" class="inp"> 
+                    <i></i>
+                    <span> 
+                </li>
+                <li >
+                    <label for="">密码：</label>
+                    <input name="password" type="password" placeholder="请输入密码" class="inp"> 
+                    <i></i>
+                    <span> 
+                </li>
+                <li class="agree">
+                    <input type="checkbox">同意协议并登陆 
+                    <a href="xieyi.txt">《密码提示及登陆协议》</a>
+                    <i></i>
+                </li>
+                <li>
+                    <button type="submit" class="btn">登陆<a href="index.html"></a></button>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <script>
+        // 检查账号
+        const username = document.querySelector('[name=username]')
+        username.addEventListener('change', verifyName)
+        function verifyName(){
+            const reg = /^[a-zA-Z0-9-_\u4e00-\u9fa5]{6}$/
+            const i = username.nextElementSibling
+            const span = i.nextElementSibling
+            if(!reg.test(username.value)){
+                span.innerHTML = `输入错误，请输入6位`
+                i.classList.add('error_icon')
+                console.log(i)
+                return false
+            }
+            span.innerHTML = ''
+            if(i.classList.contains('error_icon')){
+                i.classList.remove('error_icon')
+            }
+            i.classList.add('right_icon')
+            // 存储用户名
+            localStorage.setItem('username', username.value)
+            return true 
+        }
+        // 检查密码
+        const password = document.querySelector('[name=password]')
+        password.addEventListener('change', verifyPwd)
+        function verifyPwd(){
+            const i = password.nextElementSibling
+            const span = i.nextElementSibling
+            console.log(password.value)
+            if(password.value !== '40011034'){
+                span.innerHTML = `输入错误，请重试`
+                i.classList.add('error_icon')
+                return false
+            }
+            span.innerHTML = ''
+            if(i.classList.contains('error_icon')){
+                i.classList.remove('error_icon')
+            }
+            i.classList.add('right_icon')
+            console.log(i)
+            return true 
+        }
+        // 同意模块
+        const agree = document.querySelector('.agree')
+        agree.addEventListener('click', function(){
+            agree.classList.add('agree2')
+        })
+
+        // 提交模块
+        const form = document.querySelector('form')
+        form.addEventListener('submit', function(e){
+            // 判断是否勾选了
+            if(!agree.classList.contains('agree2')){
+                alert('请勾选同意协议')
+                e.preventDefault()
+            }
+            // 判断用户名和密码是否正确
+            if(!verifyName()) e.preventDefault()
+            if(!verifyPwd()) e.preventDefault()
+
+        })
+        // 协议
+        const xieyi = document.querySelector('.agree a')
+     
+    </script>
+   
+
+</body>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登陆</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./css/3d.css">
+    <link rel="stylesheet" href="./css/box.css">
+    <link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<body>
+    <!-- header开始 -->
+    <header class="header w">
+        <!-- logo模块 -->
+        <div class="logo">
+            <a href="#" title="一周年"></a>
+            <h1>一周年</h1>
+        </div>
+        <!-- keywords模块 -->
+        <div class="keyword">
+            <ul>
+                <li class="now"><a href="#"> 首页</a></li>
+                <li><a href="#">恋爱历程</a> </li>
+                <li><a href="#">甜蜜记录</a> </li>
+            </ul>
+        </div>
+        <!-- user模块 -->
+        <div class="user">
+            <i class="touxiang"></i>
+            <h1></h1>
+            <a href="login.html" class="logout">退出</a>
+        </div>
+        <script>
+            const username = localStorage.getItem('username')
+            const touxiang = document.querySelector('.touxiang')
+            const uname = touxiang.nextElementSibling
+            // 设置用户名
+            uname.innerHTML = username 
+            // 退出清楚用户名
+            const logout = document.querySelector('.logout')
+            logout.addEventListener('click', function(){
+                localStorage.clear('username')
+            })
+        </script>
+    </header>
+    <!-- header结束 -->
+    <!-- 导航栏开始 -->
+    <div class="nav w">
+        <div class="nav_left">
+            <ul class="nav_bar">
+                <li class="active"><a href="#">甜甜视频</a></li>
+                <li><a href="#">甜甜图片</a></li>
+                <li><a href="travel.html">打卡地点</a></li>
+                <li><a href="#">美丽花花</a></li>
+                <li><a href="#">好吃美食</a></li>
+                <li><a href="diary.html">美美日记</a></li>
+            </ul>
+        </div>
+        <div class="banner">
+            <img src="./images/banner.jpg" alt="">
+        </div>
+    </div>
+    <script>
+        // 获取元素
+        const nav_bar = document.querySelector('.nav_bar')
+        // 添加鼠标到达区域高亮
+        nav_bar.addEventListener('click', function(e){
+            //移除原来的
+            document.querySelector('.nav_bar .active').classList.remove('active')
+            //添加新的
+            if(e.target.tagName === 'A'){
+                e.target.parentNode.classList.add('active')
+
+            }
+            if(e.target.tagName === 'LI') e.target.classList.add('active')
+        })
+        
+    </script>
+    <!-- 导航栏结束 -->
+    <!-- 时间视频开始 -->
+    <div class="timevideo w">
+        <div class="time">
+            <p class="today">今天是2023年6月16日</p>
+            <h1>见面倒计时</h1>
+            <p class="clock">
+                <span id="day">00</span>
+                <i>天</i>
+                <span id="hour">00</span>
+                <i>时</i>
+                <span id="min">00</span>
+                <i>分</i>
+                <span id="sec">00</span>
+                <i>秒</i>
+            </p>
+            <h2></h2>
+        </div>
+        <div class="video">
+            <div class="video_tab">
+                <ul>
+                    <li class='now' data-id="0">迈阿密纪念</li>
+                    <li data-id="1">一周年纪念1</li>
+                    <li data-id="2">一周年纪念2</li>
+                </ul>
+            </div>
+            <div class="content">
+                <video src="./images/video0.MOV" controls="controls"></video>
+            </div>
+            <div class="content" style="display: none;">
+                <video src="./images/video1.MOV" controls="controls"></video>
+            </div>
+            <div class="content" style="display: none;">
+                <video src="./images/video2.MP4" controls="controls"></video>
+            </div>
+        </div>
+    </div>
+    <script>
+        //倒计时模块
+        const date = new Date()
+        const today = document.querySelector('.today')
+        const clock = document.querySelector('.clock')
+
+        today.innerHTML = `今天是${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日`
+
+        // 倒计时函数
+        function getCountTime(){
+            const current = +new Date()
+            const arrive = new Date('2023-7-22 13:00:00')
+            const count = arrive - current
+            // 转换为秒
+            const sec = count/ 1000
+
+            // 转换为日期
+            let d = parseInt(sec / 60 / 60 / 24)
+            let h = parseInt(sec / 60 / 60 % 24)
+            let m = parseInt(sec / 60 % 60)
+            let s = parseInt (sec % 60)
+
+            const day = document.querySelector('#day')
+            const hour = document.querySelector('#hour')
+            const mins = document.querySelector('#min')
+            const seconds = document.querySelector('#sec')
+            day.innerHTML = d
+            hour.innerHTML = h
+            mins.innerHTML = m
+            seconds.innerHTML = s
+        }
+        //先调用一次
+        getCountTime()
+        //然后开启定时器 【先调用然后开启会避免第一秒空白调用】
+        setInterval(getCountTime, 1000)
+
+
+
+        //视频模块
+        // 切换
+        const video_tab = document.querySelector('.video_tab')
+        const content = document.querySelectorAll('.content')
+        video_tab.addEventListener('click', function(e){
+            if(e.target.tagName === 'LI'){
+                // 取消现有的now
+                video_tab.querySelector('.now').classList.remove('now')
+                // 添加新的
+                e.target.classList.add('now')
+
+                // 先都display：none
+                for(let i = 0; i < content.length; i++){
+                    content[i].style.display = 'none'
+                }
+                // 显示对应
+                content[e.target.dataset.id].style.display = 'block'
+            }
+        })
+    </script>
+    <!-- 时间视频结束 -->
+    <!-- 方块相册开始 -->
+    <div class="box w">
+        <h1>百变狼狼</h1>
+        <h2>在线领养</h2>
+        <!-- Swiper -->
+        <div class="swiper swiperOne">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="" />
+              </div>
+              <div class="swiper-slide">
+                <img src="" />
+              </div>
+              <div class="swiper-slide">
+                <img src="" />
+              </div>
+              <div class="swiper-slide">
+                <img src="" />
+              </div>
+            </div>
+            <div class="swiper-pagination swpOne"></div>
+          </div>      
+    </div>
+    <script src="./js/swiper-bundle.min.js"></script>
+    <script>
+        const box_slides = document.querySelectorAll('.box .swiper-slide img')
+        for(let i = 0; i < box_slides.length; i++){
+            box_slides[i].src = `./images/box${i+1}.jpg`
+        }
+        var swiper1 = new Swiper(".swiperOne", {
+            effect: "cube",
+            grabCursor: true,
+            cubeEffect: {
+                shadow: true,
+                slideShadows: true,
+                shadowOffset: 20,
+                shadowScale: 0.94,
+            },
+            pagination: {
+                el: ".swpOne",
+            },
+        });
+        </script>
+    <!-- 方块相册结束 -->
+    <!-- 3d相册开始 -->
+    <div class="threeD w">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="./images/3d1.jpg" />
+            </div>
+            <div class="swiper-slide">
+                <img src= />
+            </div>
+            <div class="swiper-slide">
+                <img src= />
+            </div>
+            <div class="swiper-slide">
+                <img src= />
+            </div>
+            <div class="swiper-slide">
+                <img src= />
+            </div>
+            <div class="swiper-slide">
+                <img src= />
+            </div>
+            <div class="swiper-slide">
+                <img src=/>
+            </div>
+            <div class="swiper-slide">
+                <img src=/>
+            </div>
+            <div class="swiper-slide">
+                <img src= />
+            </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <!-- Swiper JS -->
+    </div>
+    <script src="./js/swiper-bundle.min.js"></script>
+    <script>
+        const slides = document.querySelectorAll('.threeD .swiper-slide img')
+        for(let i = 0; i < slides.length; i++){
+            slides[i].src = `./images/3d${i+1}.jpg`
+        }
+        var swiper = new Swiper(".mySwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            coverflowEffect: {
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            },
+            pagination: {
+              el: ".swiper-pagination",
+            },
+          });
+    </script>
+    <!-- 3d相册结束 -->
+    <!-- 电梯模块开始 -->
+    <div class="elevator">
+        <ul class="elevator-list">
+            <li><a href="javascript:;" data-id="timevideo">见面计时</a></li>
+            <li><a href="javascript:;" data-id="box">方块照片</a></li>
+            <li><a href="javascript:;" data-id="threeD">3D照片</a></li>
+            <li><a href="javascript:;" id="backTop">返回头部</a></li>
+        </ul>
+    </div>
+    <script>
+        //滑到下面出现
+        (function() {
+            const elevator = document.querySelector('.elevator')
+            window.addEventListener('scroll', function(){
+                // 大于400像素出现
+                const n = document.documentElement.scrollTop
+                elevator.style.opacity = n >= 300 ? 1 : 0
+            })
+            // 点击回到顶端
+            const backTop = document.querySelector('#backTop')
+            backTop.addEventListener('click', function(){
+                window.scrollTo(0,0)
+            })
+        })();
+
+        //点击回到相应位置以及点击高亮
+        (function() {
+            const list = document.querySelector('.elevator-list')
+            list.addEventListener('click', function(e){
+                if(e.target.tagName === 'A' && e.target.dataset){
+                    //移除原来的
+                    if(document.querySelector('.elevator-list .active')){
+                        document.querySelector('.elevator-list .active').classList.remove('active')
+                    }
+                    // 添加新的
+                    e.target.classList.add('active')
+                    const place = document.querySelector(`.${e.target.dataset.id}`).offsetTop
+                    document.documentElement.scrollTop = place
+                }
+            })
+        })();
+
+        //对应位置亮
+        window.addEventListener('scroll', function(e){
+            const timevideo = document.querySelector('.timevideo')
+            const box = document.querySelector('.box')
+            const threeD = document.querySelector('.threeD')
+            const n = document.documentElement.scrollTop
+
+            //移除原来的
+            if(document.querySelector('.elevator-list .active')){
+                document.querySelector('.elevator-list .active').classList.remove('active')
+            }
+            
+            console.log(threeD.offsetTop)
+            console.log(n)
+            // 添加新的
+            if(n >= 446 && n < 900){
+                document.querySelector('.elevator-list [data-id=timevideo]').classList.add('active') //属性选择器
+            } else if (n >= 900 && n < 1100){
+                document.querySelector('.elevator-list [data-id=box]').classList.add('active')
+            } else if (n >= 1100){
+                document.querySelector('.elevator-list [data-id=threeD]').classList.add('active')
+            }
+            
+
+
+        })
+    </script>
+    <!-- 电梯模块结束 -->
+</body>

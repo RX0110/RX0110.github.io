@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登陆</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/food.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    
+</head>
+<body>
+    <!-- Swiper -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><p>Slide 1</p></div>
+            <div class="swiper-slide"><p>Slide 2</p></div>
+            <div class="swiper-slide"><p>Slide 3</p></div>
+        </div>
+        <div class="swiper-pagination"></div> 
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="./js/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper('.swiper-container',{
+            direction : 'vertical',
+            followFinger : false,
+            speed:800,
+            mousewheel: true,
+            pagination : {
+                el:'.swiper-pagination',
+            },
+            on:{
+                init:function(swiper){
+                    slide=this.slides.eq(0);
+                    slide.addClass('ani-slide');
+                },
+                transitionStart: function(){
+                    for(i=0;i<this.slides.length;i++){
+                        slide=this.slides.eq(i);
+                        slide.removeClass('ani-slide');
+                    }
+                },
+                transitionEnd: function(){
+                    slide=this.slides.eq(this.activeIndex);
+                    slide.addClass('ani-slide');
+                    
+                },
+            }
+        });
+
+</script>
+</body>

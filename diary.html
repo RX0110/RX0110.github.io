@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登陆</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/diary.css">
+    <link rel="shortcut icon" href="favicon.ico"/>
+
+
+</head>
+<body>
+    <div class="people w">
+        <div class="jiejie">
+            <h1>姐姐</h1>
+            <p class="jie1"><a href="./images/3d3.jpg">2022年9月14日</a></p>
+            <p class="jie1"><a href="#">2022年9月15日</a></p>
+            <p class="jie1"><a href="#">2022年9月16日</a></p>
+            <p class="jie1"><a href="#">2022年9月17日</a></p>
+            <p class="jie1"><a href="#">2022年9月18日</a></p>
+            <p class="jie2"><a href="#">2022年9月26日</a></p>
+            <p class="jie3"><a href="#">2022年10月2日</a></p>
+        </div>
+        <div class="me">
+            <h1>帅狼狼</h1>
+            <p class="me0"><a href="#">2022年9月17日</a></p>
+            <p class="me1"><a href="#">2022年9月19日</a></p>
+            <p class="me2"><a href="#">2022年9月20日</a></p>
+            <p class="me3"><a href="#">2022年9月30日</a></p>
+            <p class="me4"><a href="#">2022年10月4日</a></p>
+        </div>
+    </div>
+    <script>
+        const jiejie = document.querySelectorAll('.jiejie p')
+        const me = document.querySelectorAll('.me p')
+        for(let i = 0; i < jiejie.length; i++){
+            // 渲染
+            jiejie[i].childNodes[0].href = `./images/jiejie${i+1}.jpg`
+            
+
+            jiejie[i].addEventListener('mouseenter', function(){
+                // 移除原来的
+                if(document.querySelector('.active')){
+                    document.querySelector('.active').classList.remove('active')
+                }
+                // 添加新的
+                jiejie[i].classList.add('active')
+            })
+        }
+        for(let i = 0; i < jiejie.length; i++){
+            me[i].addEventListener('mouseenter', function(){
+                // 渲染
+                me[i].childNodes[0].href = `./images/me${i+1}.jpg`
+                // 移除原来的
+                if(document.querySelector('.active')){
+                    document.querySelector('.active').classList.remove('active')
+                }
+                // 添加新的
+                me[i].classList.add('active')
+            })
+        }
+    </script>
+</body>
